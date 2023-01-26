@@ -2,6 +2,7 @@
 
 namespace GigWage;
 
+use GigWage\Resources\Ten99\Ten99Interface;
 use GigWage\Resources\ApiKey\ApiKeyInterface;
 use GigWage\Resources\BankAccount\BankAccountInterface;
 use GigWage\Resources\LineItem\LineItemInterface;
@@ -21,6 +22,7 @@ class Client
   private $_lineitem;
   private $_bankaccount;
   private $_apikey;
+  private $_ten99;
   private $_client;
 
   function __construct($api_key, $api_secret, $base_url)
@@ -114,6 +116,15 @@ class Client
       $this->_apikey = new ApiKeyInterface($this->_client);
     }
     return $this->_apikey;
+  }
+
+  function getTen99()
+  {
+    if(empty($this->_ten99))
+    {
+      $this->_ten99 = new Ten99Interface($this->_client);
+    }
+    return $this->_ten99;
   }
 
 }

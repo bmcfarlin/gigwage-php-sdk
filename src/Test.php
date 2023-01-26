@@ -1,5 +1,6 @@
 <?php
 
+  include_once(__DIR__ . '/Resources/Ten99/Ten99Interface.php');
   include_once(__DIR__ . '/Resources/ApiKey/ApiKeyInterface.php');
   include_once(__DIR__ . '/Resources/BankAccount/BankAccountInterface.php');
   include_once(__DIR__ . '/Resources/LineItem/LineItemInterface.php');
@@ -12,7 +13,7 @@
   include_once(__DIR__ . '/Client.php');
   include_once(__DIR__ . '/Settings.php');
 
-  //$client = new \GigWage\Client(GIGWAGE_API_KEY, GIGWAGE_API_SECRET, GIGWAGE_BASE_URL);
+  $client = new \GigWage\Client(GIGWAGE_API_KEY, GIGWAGE_API_SECRET, GIGWAGE_BASE_URL);
 
   /************************
   *  Contractor           *
@@ -248,3 +249,42 @@
   // $item = json_decode($json);
   // $json = json_encode($item, JSON_PRETTY_PRINT);
   // print("$json\n");
+
+
+  /************************
+  *  1099
+  ************************/
+  // $json = $client->ten99->list();
+  // $item = json_decode($json, true);
+  // foreach($item['1099s'] as $item){
+  //   if($item['year'] = '2022'){
+  //     if($item['status'] == 'submitted'){
+        
+  //       $id = $item['id'];
+  //       $contractor_id = $item['contractor_id'];
+
+  //       $json = $client->ten99->retrieve($id);
+  //       $sitem = json_decode($json, true);
+
+  //       $url = $sitem['url'];
+
+  //       $json = $client->contractor->get($contractor_id);
+  //       $titem = json_decode($json, true);
+
+  //       $first_name = $titem['contractor']['first_name'];
+  //       $last_name = $titem['contractor']['last_name'];
+  //       $email = $titem['contractor']['email'];
+
+  //       $nitem = new stdClass();
+  //       $nitem->id = $id;
+  //       $nitem->contractor_id = $contractor_id;
+  //       $nitem->url = $url;
+  //       $nitem->first_name = $first_name;
+  //       $nitem->last_name = $last_name;
+  //       $nitem->email = $email;
+  //       $json = json_encode($nitem, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+  //       print("$json\n");
+  //     }
+  //   }
+  // }
+

@@ -38,6 +38,8 @@ class RestClient
 
   function get($path, $payload = [])
   {
+    $debug = false;
+
     $url = sprintf("%s%s", $this->_base_url, $path);
 
     if($payload)
@@ -45,7 +47,10 @@ class RestClient
       $url = sprintf("%s?%s", $url, http_build_query($payload));
     }
 
-    //print("$url\n");
+    if($debug){
+      print("URL\n");
+      print("$url\n");
+    }
 
     $dtm = new \DateTime('now');
     $timestamp = $dtm->getTimestamp();
@@ -53,15 +58,26 @@ class RestClient
 
     $method = 'GET';
 
+    if($debug){
+      print("METHOD\n");
+      print("$method\n");
+    }
+
     $items = [$timestamp, $method, $path];
 
     $data = implode('', $items);
 
-    //print("$data\n");
+    if($debug){
+      print("DATA\n");
+      print("$data\n");
+    }
 
     $signature = hash_hmac('sha256', $data, $this->_api_secret);
 
-    //print("$signature\n");
+    if($debug){
+      print("SIGNATURE\n");
+      print("$signature\n");
+    }
 
     $header = ['X-Gw-Api-Key: ' . $this->_api_key, 'X-Gw-Timestamp: ' . $timestamp, 'X-Gw-Signature: ' . $signature];
 
@@ -72,9 +88,24 @@ class RestClient
     curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
+    if($debug){
+      curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+    }
+
     $response = curl_exec($ch);
 
-    //print("$response\n");
+    if($debug){
+      print("RESPONSE\n");
+      print("$response\n");
+    }
+
+    $information = curl_getinfo($ch);
+    $information = json_encode($information, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
+    if($debug){
+      print("INFORMATION\n");
+      print("$information\n");
+    }
 
     curl_close($ch);
 
@@ -83,9 +114,14 @@ class RestClient
    
   function post($path, $payload = [], $custom_request = null)
   {
+    $debug = false;
+
     $url = sprintf("%s%s", $this->_base_url, $path);
 
-    //print("$url\n");
+    if($debug){
+      print("URL\n");
+      print("$url\n");
+    }
 
     $dtm = new \DateTime('now');
     $timestamp = $dtm->getTimestamp();
@@ -93,11 +129,19 @@ class RestClient
 
     $method = 'POST';
 
-    //print("$custom_request\n");
+    if($debug){
+      print("CUSTOM_REQUEST\n");
+      print("$custom_request\n");
+    }
 
     if($custom_request)
     {
       $method = $custom_request;
+    }
+
+    if($debug){
+      print("METHOD\n");
+      print("$method\n");
     }
 
     $items = [$timestamp, $method, $path];
@@ -110,17 +154,26 @@ class RestClient
 
     $data = implode('', $items);
 
-    //print("$data\n");
+    if($debug){
+      print("DATA\n");
+      print("$data\n");
+    }
 
     $signature = hash_hmac('sha256', $data, $this->_api_secret);
 
-    //print("$signature\n");
+    if($debug){
+      print("SIGNATURE\n");
+      print("$signature\n");
+    }
 
     $header = ['Content-Type: application/json; charset=utf-8', 'X-Gw-Api-Key: ' . $this->_api_key, 'X-Gw-Timestamp: ' . $timestamp, 'X-Gw-Signature: ' . $signature];
 
     $fields = $payload;
 
-    //print("$fields\n");
+    if($debug){
+      print("FIELDS\n");
+      print("$fields\n");
+    }
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -130,7 +183,10 @@ class RestClient
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+
+    if($debug){
+      curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+    }
 
     if($custom_request)
     {
@@ -139,12 +195,18 @@ class RestClient
 
     $response = curl_exec($ch);
 
-    //print("$response\n");
+    if($debug){
+      print("RESPONSE\n");
+      print("$response\n");
+    }
 
     $information = curl_getinfo($ch);
     $information = json_encode($information, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
-    //print("$information\n");
+    if($debug){
+      print("INFORMATION\n");
+      print("$information\n");
+    }
 
     curl_close($ch);
 
