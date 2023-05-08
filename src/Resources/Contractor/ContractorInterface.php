@@ -51,7 +51,6 @@ class ContractorInterface
   public function update($id, $data)
   {
     $url = "/api/v1/contractors/$id";
-    //$data['id'] = $id;
     $data = ['contractor' => $data];
     return $this->_client->patch($url, $data);
   }
@@ -60,6 +59,12 @@ class ContractorInterface
   {
     $url = "/api/v1/contractors/$id/invite";
     return $this->_client->post($url);
+  }
+
+  public function delete($id)
+  {
+    $url = "/api/v1/contractors/$id";
+    return $this->_client->post($url, [], 'DELETE');
   }
 
   public function invitations($id)
@@ -74,5 +79,7 @@ class ContractorInterface
     $data = ['identity_document' => $data];
     return $this->_client->post($url, $data);
   }
+
+
 
 }

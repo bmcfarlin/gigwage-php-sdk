@@ -35,6 +35,15 @@
   // $item = json_decode($json);
   // $json = json_encode($item, JSON_PRETTY_PRINT);
   // print("$json\n");
+  // die;
+
+  // 413898
+
+  // $json = $client->contractor->delete(413898);
+  // $item = json_decode($json);
+  // $json = json_encode($item, JSON_PRETTY_PRINT);
+  // print("$json\n");
+  // die;
 
   // $contractors = $item->contractors;
   // foreach($contractors as $contractor){
@@ -99,7 +108,7 @@
   // $json = json_encode($item, JSON_PRETTY_PRINT);
   // print("$json\n");
 
-  // $id = 4074;
+  // $id = 733069;
   // $json = $client->payment->get($id);
   // $item = json_decode($json);
   // $json = json_encode($item, JSON_PRETTY_PRINT);
