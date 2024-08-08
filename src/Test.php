@@ -31,11 +31,11 @@
   // $json = json_encode($item, JSON_PRETTY_PRINT);
   // print("$json\n");
 
-  // $json = $client->contractor->list();
-  // $item = json_decode($json);
-  // $json = json_encode($item, JSON_PRETTY_PRINT);
-  // print("$json\n");
-  // die;
+  $json = $client->contractor->list();
+  $item = json_decode($json);
+  $json = json_encode($item, JSON_PRETTY_PRINT);
+  print("$json\n");
+  die;
 
   // 413898
 
